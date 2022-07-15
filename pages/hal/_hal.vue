@@ -1,7 +1,11 @@
 <template>
   <section class="section">
-    <div class="container"  style="margin-top: 25px;">
-      <div v-if="$fetchState.pending">
+    <div class="container atas">
+      <div style="position: relative;">
+        <input v-model="query" class="input" type="text" placeholder="Cari username/caption tweet 🔎"/>
+        <span v-if="show" class="removeInput" @click="removeSearchQuery">+</span>
+      </div>
+      <div v-if="$fetchState.pending" style="margin-top: 5px;">
         <div class="columns is-multiline" >
           <div v-for="n in 6" v-bind:key="n" class="column is-4" >
             <div class="card tweet-box penunggu-data-tweet">
@@ -15,7 +19,7 @@
         </div>
       </div>
       <p v-else-if="$fetchState.error">An error occurred :(</p>
-      <div v-else class="columns is-multiline" >
+      <div v-else class="columns is-multiline" style="margin-top: 5px;">
           <div class="column is-4" v-for="(twt) of tweet"
             v-bind:key="twt.ulid">
             <div class="card tweet-box">
@@ -36,7 +40,8 @@
     </div>
     <div>
       <Pagination
-        :paginate="paginate"/>
+        :paginate="paginate"
+        :query="query"/>
     </div>
     <!-- <div class="container is-primary" style="margin-top: 20px;padding-bottom:-90px;max-width: 38.5rem;">
 
@@ -51,6 +56,8 @@ export default {
   },
   data() {
     return {
+      query: '',
+      show: false,
       tweet: [],
       paginate: {
         total: 0,
@@ -62,7 +69,14 @@ export default {
     }
   },
   async fetch() {
-      await this.$axios.get('/api/savedtweets?page=' + this.$route.params.hal)
+    const param = this.$route.query.cari
+      if (param !== '') {
+        await this.$axios.get('/api/savedtweets', {
+        params: {
+          page: this.$route.params.hal,
+          cari: param
+        }
+      })
         .then(response => {
           this.tweet = response.data.data
           this.paginate.total = response.data.pagination.total_pages
@@ -74,6 +88,20 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      } else {
+        await this.$axios.get('/api/savedtweets?page=' + this.$route.params.hal)
+        .then(response => {
+          this.tweet = response.data.data
+          this.paginate.total = response.data.pagination.total_pages
+          this.paginate.perPage = response.data.pagination.per_page
+          this.paginate.currentPage = response.data.pagination.current_page
+          this.paginate.nextPage = response.data.pagination.current_page + 1
+          this.paginate.prevPage = response.data.pagination.current_page - 1
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
   },
   computed: {
     mode() {
@@ -83,15 +111,26 @@ export default {
       return this.$colorMode.preference === "light" ? "dark" : "light";
     }
   },
+   watch: {
+        query(after, before) {
+            this.$fetch();
+        }
+    },
   mounted() {
-    if (this.$route.params.hal === '1') {
-                this
-                    .$router
-                    .push('/')
-    };
+    if (this.$route.query.cari !== undefined) {
+      this.query = this.$route.query.cari;
+      this.show = true;
+    }
+    // if (this.$route.params.hal === '1') {
+    //             this
+    //                 .$router
+    //                 .push('/')
+    // };
   },
   methods: {
-    getAllData () {
+    removeSearchQuery () {
+      this.query = '';
+      this.show = false;
     },
   },
 
