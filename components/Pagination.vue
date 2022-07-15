@@ -22,7 +22,7 @@
                 Selanjutnya 👉
             </NuxtLink>
 
-            <!-- <ul class="pagination-list">
+            <ul class="pagination-list">
               <li class="linya">
                 <NuxtLink
                   :to="`/hal/1`"
@@ -56,7 +56,7 @@
                   {{paginate.total}}
                 </NuxtLink>
               </li>
-            </ul> -->
+            </ul>
     </nav>
   </div>
 </template>

@@ -45,11 +45,9 @@
 </template>
 
 <script>
-import Pagination from "../components/Pagination.vue";
 export default {
   name: 'IndexPage',
   components: {
-    Pagination
   },
   data() {
     return {
@@ -64,7 +62,7 @@ export default {
     }
   },
   async fetch() {
-      await this.$axios.get('/api/savedtweets')
+      await this.$axios.get('/api/savedtweets?page=' + this.$route.params.hal)
         .then(response => {
           this.tweet = response.data.data
           this.paginate.total = response.data.pagination.total_pages
@@ -85,12 +83,17 @@ export default {
       return this.$colorMode.preference === "light" ? "dark" : "light";
     }
   },
+  mounted() {
+    if (this.$route.params.hal === '1') {
+                this
+                    .$router
+                    .push('/')
+    };
+  },
   methods: {
     getAllData () {
-
     },
   },
-  mounted() {
-  },
+
 }
 </script>

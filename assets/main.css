@@ -49,6 +49,15 @@ a {
 .main-content {
   background-color: #e0eefa;
 }
+.penunggu-data-tweet {
+  height: 500px;
+}
+.dark-mode .main-content {
+  background-color: var(--bg);
+}
+.dark-mode .tweet-box{
+  background-color: #0d2538;
+}
 .footer {
   background-color: #f8f8f8;
 }
