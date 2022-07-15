@@ -14,7 +14,7 @@
             height="28"
           >
           <span>
-            <h1><b>Saved My Tweets</b></h1>
+            <h1><b>Saved Tweets</b></h1>
           </span>
         </NuxtLink>
         <!-- <li v-for="color of colors" :key="color"> -->

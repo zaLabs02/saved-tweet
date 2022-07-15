@@ -6,15 +6,46 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'savedmytweet',
+    title: 'Save Tweet Punyanya Ijal',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      {
+        name: `description`,
+        content: `Save Tweet alias bookmark versi Ijal`
+      }, {
+        name: `keyword`,
+        content: `tweet,twitter,thread,savetweet`
+      }, {
+        hid: 'twitter:card',
+        property: 'twitter:card',
+        content: `summary`
+      },  {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: `Save Tweet Punyanya Ijal`
+      }, {
+          hid: 'twitter:site',
+          property: 'twitter:site',
+          content: `@afrizalpatlas`
+      }, {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: `Save Tweet alias bookmark versi Ijal`
+      }, {
+          hid: 'twitter:image',
+          property: 'twitter:image',
+          content: `https://savetweet.afrizalmy.com/twt.png`
+      }, {
+          hid: 'twitter:url',
+          property: 'twitter:url',
+          content: `https://savetweet.afrizalmy.com/`
+      }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/twt.ico' }
     ],
     // script: [
     //   { src: "https://platform.twitter.com/widgets.js",  charset: "utf-8"}
@@ -69,6 +100,10 @@ export default {
       orientation: 'portrait',
       background_color: '#e8f6ff',
       useWebmanifestExtension: false
+    },
+    icon: {
+      fileName: "twt.png",
+      purpose: ['any']
     }
   },
 
